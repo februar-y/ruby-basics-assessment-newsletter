@@ -30,7 +30,13 @@ ARTICLES = [
 def calculate_recipients
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+
+  # Create an empty array that will eventually contain the people that should receive more newsletters
   send_array = []
+
+  # Iterate over SUBSCRIBERS constant. If the current email IS in the UNSUBCRIBERS array the it will equal 
+  # True. This will mean true == false. Nothing will happen, go next. If the current item is not on email
+  # the statement will be false == false which is true. The email will be added to the send_array list.
   SUBSCRIBERS.each do |email|
     if UNSUBSCRIBED.include?(email) == false
       send_array << email
@@ -39,7 +45,9 @@ def calculate_recipients
   send_array
 end
 
+# Added closing ) to method
 def first_n_articles(number_of_articles)
+  # Added .to_i to convert arguement to integer
   ARTICLES.first(number_of_articles.to_i)
 end
 
@@ -47,7 +55,13 @@ def print_recipients
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
+
+  # Created a blank string named print_message. This string will have strings "shoveled" on to it
   print_message = ""
+
+  # Iterate over the calculate_recipients method. If the current iteration (person/email) is not the last
+  # item in the array from calculate_recipients method then we append/shovel that item onto the print_message
+  # string with a comma and space. Once it reaches the last person it just appends that person with no coma.
   calculate_recipients.each do |person|
     if person != calculate_recipients[-1]
       print_message << "#{person}, "
@@ -55,6 +69,7 @@ def print_recipients
       print_message << "#{person}"
     end
   end
+  # Print the string 
   print print_message
 end
 
@@ -62,6 +77,9 @@ def print_one_article(article)
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+
+  # Print statements that use string interpolation to display the value of the key being looked for
+  # in the hash.
   print "#{article[:title]}\n"
   print "by: #{article[:author]}\n"
   print "#{article[:text]}\n\n"
@@ -70,12 +88,16 @@ end
 def print_many_articles(articles)
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
+
+  # Iterate over each hash in the ARTICLES constant. Call print_one_article with the current hash to fill 
+  # in the data from the current hash.
   articles.each do |item|
     print_one_article(item)
   end
 end
 
 def format_campus_location(campus)
+  # Fixed key from "name" to :name
   "Flatiron #{campus[:name]}"
 end
 
@@ -87,6 +109,7 @@ def format_footer(campus)
   "Flatiron Newsletter · #{campus[:name]} · #{campus[:address]} "
 end
 
+# added \n's for spacing to match sample text
 def print_newsletter(number)
   puts "Generating this week's newsletter...\n\n"
 
